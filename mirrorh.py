@@ -17,6 +17,22 @@ class pausi:
 '''
     def __init__(self):
         self.user_agent = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:30.0) Gecko/20100101 Firefox/30.0'
+	self.End = False
+	self.end = '''<th>Attacker</th>
+<th>Country</th>
+<th>Web URL</th>
+<th>IP's</th>
+<th>Date</th>
+<th>Preview</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>'''
     def get_urls(self, url):
         headers = {
             'User-Agent' : self.user_agent
@@ -25,6 +41,8 @@ class pausi:
         if req.status_code == 200:
             if re.search('title>Attention Required! | Cloudflare</title>', req.text):
                 print "Cloudflare :: Attention Required!"
+	    elif re.search(self.end, req.text):
+		self.End = True
             else:
                 r = re.findall('break-word;white-space: normal;min-width: 300px;"><a href="(.+?)">(.+?)</a></td>', req.text)
                 if r:
@@ -43,11 +61,15 @@ class pausi:
     def start(self, id):
         try:
             url = 'https://mirror-h.org/search/hacker/'
-            for i in range(9999999):
-                u = url+str(id)+'/pages/'+str(i)
-                print '\n'+u
-                self.get_urls(u)
-                time.sleep(1)
+            for i in range(1, 9999999):
+		if self.End == True:
+			print 'Done.'
+			break
+		else:
+	                u = url+str(id)+'/pages/'+str(i)
+        	        print '\n'+u
+                	self.get_urls(u)
+	                time.sleep(1)
         except:
             print "Error!"
     def main(self):
