@@ -10,7 +10,7 @@ class pausi:
    ___           _     _                  
   / _ \_ __ __ _| |__ | |__   ___ _ __    
  / /_\/ '__/ _` | '_ \| '_ \ / _ \ '__|   
-/ /_\\| | | (_| | |_) | |_) |  __/ |      
+/ /_\\\\| | | (_| | |_) | |_) |  __/ |      
 \____/|_|  \__,_|_.__/|_.__/ \___|_| 
      Coded by Zeerx7 # XploitSec-ID
      Date: 04 - 01 - 2021
@@ -61,6 +61,12 @@ class pausi:
     def start(self, id):
         try:
             url = 'https://mirror-h.org/search/hacker/'
+	    try:
+		get_total_result = requests.get(url+str(id), headers={'User-Agent' : self.user_agent})
+		total = re.findall('Total Results : (.+?)</p>',get_total_result.text)
+		print 'Total domain on mirror  :: '+str(total[0])
+	    except:
+		pass
             for i in range(1, 9999999):
 		if self.End == True:
 			print 'Done.'
