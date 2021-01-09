@@ -75,7 +75,7 @@ class pausi:
     def main(self):
         self.banner()
         try:
-            id_hacker = input('id hacker[ex: 5010] :: ')
+            id_hacker = input('id hacker[ex: 43708] :: ')
             self.savefile = raw_input('Save filename[ex: domain.txt] :: ')
             self.start(id_hacker)
         except:
